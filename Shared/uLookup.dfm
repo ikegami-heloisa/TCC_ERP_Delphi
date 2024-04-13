@@ -1,0 +1,47 @@
+object Lookup: TLookup
+  Height = 750
+  Width = 1000
+  PixelsPerInch = 120
+  object fdQryEstados: TFDQuery
+    Connection = dmDados.fdConnection
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM ESTADO')
+    Left = 48
+    Top = 40
+  end
+  object dsEstados: TDataSource
+    DataSet = fdQryEstados
+    Left = 160
+    Top = 40
+  end
+  object fdTransaction: TFDTransaction
+    Connection = dmDados.fdConnection
+    Left = 408
+    Top = 104
+  end
+  object fdQryCidades: TFDQuery
+    Connection = dmDados.fdConnection
+    Transaction = fdTransaction
+    SQL.Strings = (
+      'SELECT * FROM CIDADE                ')
+    Left = 48
+    Top = 144
+  end
+  object dsCidades: TDataSource
+    DataSet = fdQryCidades
+    Left = 168
+    Top = 144
+  end
+  object fdQryFiltro: TFDQuery
+    Connection = dmDados.fdConnection
+    Transaction = fdTransaction
+    Left = 48
+    Top = 240
+  end
+  object dsFiltro: TDataSource
+    DataSet = fdQryFiltro
+    Left = 168
+    Top = 240
+  end
+end

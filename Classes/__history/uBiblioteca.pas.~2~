@@ -1,0 +1,31 @@
+unit uBiblioteca;
+//implementacao de funcoes comuns
+
+interface
+  uses IniFiles, System.SysUtils, Vcl.Forms;
+  procedure SetValorIni(pLocal, pSecao, pSubSecao, pValor: string);
+  function GetValorIni(pLocal, pSecao, pSubSecao: string): string;
+
+implementation
+  procedure SetValorIni(pLocal, pSecao, pSubSecao: string; pValor: string);
+  var vArquivo:TIniFile;
+  begin
+    vArquivo := TIniFile.Create(pLocal);
+
+    vArquivo.WriteString(pSecao, pSubSecao, pValor);
+
+    vArquivo.Free;
+  end;
+
+  function GetValorIni(pLocal, pSecao, pSubSecao: string): string;
+  var vArquivo:TIniFile;
+  begin
+    vArquivo := TIniFile.Create(pLocal);
+
+    Result := vArquivo.ReadString(pSecao, pSubSecao, '');
+
+
+    vArquivo.Free;
+  end;
+
+end.

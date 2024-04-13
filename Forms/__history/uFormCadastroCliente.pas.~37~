@@ -1,0 +1,108 @@
+unit uFormCadastroCliente;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmDados, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, uFormCadastroPai, Vcl.Mask, Vcl.DBCtrls, uLookup;
+
+type
+  TFormCadastroCliente = class(TFormCadastroPai)
+    fdQryCadastroID_CLIENTE: TIntegerField;
+    fdQryCadastroRAZAO_SOCIAL: TWideStringField;
+    fdQryCadastroNOME_FANTASIA: TWideStringField;
+    fdQryCadastroCPF_CNPJ: TWideStringField;
+    fdQryCadastroTIPO_FJ: TWideStringField;
+    fdQryCadastroNOME: TWideStringField;
+    fdQryCadastroTELEFONE: TWideStringField;
+    fdQryCadastroCELULAR: TWideStringField;
+    fdQryCadastroEMAIL: TWideStringField;
+    fdQryCadastroENDERECO: TWideStringField;
+    fdQryCadastroNUMERO: TWideStringField;
+    fdQryCadastroCOMPLEMENTO: TWideStringField;
+    fdQryCadastroBAIRRO: TWideStringField;
+    fdQryCadastroIE: TWideStringField;
+    fdQryCadastroIM: TWideStringField;
+    fdQryCadastroDT_EXCLUIDO: TDateField;
+    lblId: TLabel;
+    edtIdCliente: TDBEdit;
+    Label2: TLabel;
+    edtRazaoSocial: TDBEdit;
+    Label3: TLabel;
+    edtNomeFantasia: TDBEdit;
+    Label4: TLabel;
+    edtCpfCnpj: TDBEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    edtNome: TDBEdit;
+    Label7: TLabel;
+    edtTelefone: TDBEdit;
+    edtTipoFJ: TDBComboBox;
+    Label8: TLabel;
+    edtCelular: TDBEdit;
+    Label9: TLabel;
+    edtEmail: TDBEdit;
+    Label10: TLabel;
+    edtEndereco: TDBEdit;
+    Label11: TLabel;
+    edtNumero: TDBEdit;
+    Label12: TLabel;
+    edtComplemento: TDBEdit;
+    Label13: TLabel;
+    edtBairro: TDBEdit;
+    Label14: TLabel;
+    edtIe: TDBEdit;
+    Label15: TLabel;
+    edtIm: TDBEdit;
+    edtCidade: TDBLookupComboBox;
+    edtEstado: TDBLookupComboBox;
+    Label16: TLabel;
+    Label17: TLabel;
+    procedure FormShow(Sender: TObject);
+    procedure fdQryCadastroBeforeInsert(DataSet: TDataSet);
+    procedure fdQryCadastroBeforeEdit(DataSet: TDataSet);
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastroCliente: TFormCadastroCliente;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormCadastroCliente.fdQryCadastroBeforeEdit(DataSet: TDataSet);
+begin
+  inherited;
+  if Self.Visible then
+    edtRazaoSocial.SetFocus;
+end;
+
+procedure TFormCadastroCliente.fdQryCadastroBeforeInsert(DataSet: TDataSet);
+begin
+  inherited;
+  if Self.Visible then
+    edtRazaoSocial.SetFocus;
+end;
+
+procedure TFormCadastroCliente.FormShow(Sender: TObject);
+begin
+  inherited;
+  Lookup.fdQryEstados.Open();
+  Lookup.fdQryEstados.FetchAll;
+
+  Lookup.fdQryCidades.Open();
+  Lookup.fdQryCidades.FetchAll;
+
+  edtRazaoSocial.SetFocus;
+end;
+
+end.

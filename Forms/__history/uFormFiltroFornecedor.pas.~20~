@@ -1,0 +1,81 @@
+unit uFormFiltroFornecedor;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmDados, uFormFiltroPai, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.ExtCtrls,
+  Vcl.Grids, Vcl.DBGrids, uFormCadastroFornecedor, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, cxTextEdit,
+  cxMaskEdit, cxSpinEdit, cxDBEdit;
+
+type
+  TFormFiltroFornecedor = class(TFormFiltroPai)
+    DBGrid1: TDBGrid;
+    lblIdFornecedor: TLabel;
+    edtIdFornecedor: TEdit;
+    lblNomeFantasia: TLabel;
+    edtNomeFantasia: TEdit;
+    lblCnpj: TLabel;
+    edtCnpj: TEdit;
+    btnNovo: TButton;
+    btnVisualizar: TButton;
+
+  private
+    { Private declarations }
+    procedure Filtrar;
+    procedure ValidarQueryVazia;
+  public
+    { Public declarations }
+  end;
+
+var
+  FormFiltroFornecedor: TFormFiltroFornecedor;
+
+implementation
+
+{$R *.dfm}
+
+{ TFormFiltroFornecedor }
+
+procedure TFormFiltroFornecedor.Filtrar;
+begin
+  fdQryFiltro.Close;
+  fdQryFiltro.SQL.Clear;
+  fdQryFiltro.SQL.Add('SELECT * FROM FORNECEDOR');
+  fdQryFiltro.SQL.Add(' WHERE 1 = 1');
+
+  if Trim(edtNome.Text) <> '' then begin
+    fdQryFiltro.SQL.Add(' AND UPPER(TRIM(RAZAO_SOCIAL)) LIKE ' + QuotedStr('%' + UpperCase(Trim(edtNome.Text)) + '%'));
+  end;
+
+  if Trim(edtNomeFantasia.Text) <> '' then begin
+    fdQryFiltro.SQL.Add(' AND UPPER(TRIM(NOME_FANTASIA)) LIKE ' + QuotedStr('%' + UpperCase(Trim(edtNomeFantasia.Text)) + '%'));
+  end;
+
+  if Trim(edtCnpj.Text) <> '' then begin
+    fdQryFiltro.SQL.Add(' AND UPPER(TRIM  (REPLACE  (REPLACE  (REPLACE(CNPJ,''.'', ''''), ''/'', ''''), ''-'', '''') ) ) LIKE ' + QuotedStr('%' + UpperCase(Trim(edtCnpj.Text)) + '%'));
+  end;
+
+  if StrToIntDef(edtIdFornecedor.Text, 0) > 0 then begin
+    fdQryFiltro.SQL.Add(' AND ID_FORNECEDOR = ' + edtIdFornecedor.Text);
+  end;
+
+
+
+  fdQryFiltro.Open();
+  fdQryFiltro.FetchAll;
+end;
+
+procedure TFormFiltroFornecedor.ValidarQueryVazia;
+begin
+  if fdQryFiltro.IsEmpty then begin
+    ShowMessage('Insira dados para pesquisar um fornecedor.');
+    Abort;
+  end;
+end;
+
+end.

@@ -1,0 +1,41 @@
+unit uFormFiltroPai;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmDados, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls;
+
+type
+  TFormFiltroPai = class(TForm)
+    edtNomeCliente: TEdit;
+    lblNomeCliente: TLabel;
+    btnFiltrar: TButton;
+    Panel1: TPanel;
+    fdQryFiltro: TFDQuery;
+    dsFiltro: TDataSource;
+    fdTransaction: TFDTransaction;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormFiltroPai: TFormFiltroPai;
+
+implementation
+
+{$R *.dfm}
+
+procedure TFormFiltroPai.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
+
+end.

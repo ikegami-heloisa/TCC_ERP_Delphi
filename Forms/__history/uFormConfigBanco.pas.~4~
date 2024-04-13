@@ -1,0 +1,54 @@
+unit uFormConfigBanco;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, uBiblioteca;
+
+type
+  TFormConfigBanco = class(TForm)
+    Image1: TImage;
+    Label1: TLabel;
+    edtLocal: TEdit;
+    Button1: TButton;
+    opnPastas: TOpenDialog;
+    procedure Button1Click(Sender: TObject);
+  private
+   { Private declarations }
+   procedure Configura;
+  public
+    { Public declarations }
+  end;
+
+var
+  FormConfigBanco: TFormConfigBanco;
+
+implementation
+
+{$R *.dfm}
+
+
+{ TFormConfigBanco }
+
+procedure TFormConfigBanco.Button1Click(Sender: TObject);
+begin
+  Configura;
+
+end;
+
+procedure TFormConfigBanco.Configura;
+var
+  vFileName: string;
+begin
+  if opnPastas.Execute then begin
+    edtLocal.Text := opnPastas.FileName;
+    vFileName     := ExtractFilePath(Application.ExeName) + 'config.ini';
+    SetValorIni(vFileName, 'CONFIGURACAO', 'LOCAL_DB', edtLocal.Text);
+    ShowMessage('Banco de Dados configurado!');
+    Application.Terminate;
+  end;
+end;
+
+end.
+

@@ -1,0 +1,59 @@
+unit uFormCadastroFornecedor;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uDmDados, uFormCadastroPai, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  Data.DB, FireDAC.Comp.Client, FireDAC.Comp.DataSet, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.ExtCtrls, Vcl.Mask, Vcl.DBCtrls;
+
+type
+  TFormCadastroFornecedor = class(TFormCadastroPai)
+    lblIdCliente: TLabel;
+    lblRazaoSocial: TLabel;
+    lblNomeFantasia: TLabel;
+    lblEndereco: TLabel;
+    lblBairro: TLabel;
+    lblCidade: TLabel;
+    lblEstado: TLabel;
+    lblCnpj: TLabel;
+    edtIdFornecedor: TDBEdit;
+    edtRazaoSocial: TDBEdit;
+    edtNomeFantasia: TDBEdit;
+    edtEndereco: TDBEdit;
+    edtBairro: TDBEdit;
+    edtCidade: TDBLookupComboBox;
+    edtEstado: TDBLookupComboBox;
+    edtCnpj: TDBEdit;
+    fdQryCadastroID_FORNECEDOR: TFDAutoIncField;
+    fdQryCadastroRAZAO_SOCIAL: TWideStringField;
+    fdQryCadastroNOME_FANTASIA: TWideStringField;
+    fdQryCadastroCNPJ: TWideStringField;
+    fdQryCadastroENDERECO: TWideStringField;
+    fdQryCadastroBAIRRO: TWideStringField;
+    fdQryCadastroID_CIDADE: TIntegerField;
+    fdQryCadastroID_ESTADO: TIntegerField;
+    fdQryCadastroEMAIL: TWideStringField;
+    lblEmail: TLabel;
+    edtEmail: TDBEdit;
+
+
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  FormCadastroFornecedor: TFormCadastroFornecedor;
+
+implementation
+
+
+
+{$R *.dfm}
+
+end.
